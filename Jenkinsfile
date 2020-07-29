@@ -21,5 +21,15 @@ pipeline {
         sh "tidy -q -e *.html"
       }
     }
+    stage('Build Image') {
+      steps {
+        sh "run_docker.sh"
+      }
+    }
+    stage('Push Image') {
+      steps {
+        sh "upload_docker.sh"
+      }
+    }
   }
 }
