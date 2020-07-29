@@ -25,10 +25,7 @@ pipeline {
       steps {
         sh """  
                 ls
-                docker info
-                dockerpath=blue
-                docker build -t $dockerpath:${BUILD_NUMBER} .
-                docker tag $dockerpath:${BUILD_NUMBER} $dockerpath:latest
+                docker build -t blue:${BUILD_NUMBER} .
                 docker images
          """
       }
@@ -36,9 +33,8 @@ pipeline {
     stage('Push Image') {
       steps {
         sh """  
-                docker login -u rwnfoo
-                docker system info | grep Registry
-                echo "Docker ID and Image: $dockerpath tag: ${BUILD_NUMBER}
+                dockerpath=blue
+                docker tag $dockerpath:${BUILD_NUMBER} $dockerpath:latest
                 docker push $dockerpath:latest
          """
       }
