@@ -27,9 +27,18 @@ pipeline {
                 ls
                 docker info
                 docker build -t blue:${BUILD_NUMBER} .
-                docker tag blue:${BUILD_NUMBER} blue:latest
                 docker images
-                docker run -p 8000:80 blue:${BUILD_NUMBER}
+         """
+      }
+    }
+    stage('Push Image') {
+      steps {
+        sh """  
+                dockerpath=blue
+                docker login -u rwnfoo
+                docker system info | grep Registry
+                docker tag $dockerpath:${BUILD_NUMBER} $dockerpath:latest
+                docker push $dockerpath:latest
          """
       }
     }
