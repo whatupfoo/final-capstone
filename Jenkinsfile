@@ -23,12 +23,12 @@ pipeline {
     }
     stage('Build Image') {
       steps {
-        sh "run_docker.sh"
+        sh "./run_docker.sh"
       }
     }
     stage('Push Image') {
       steps {
-        sh "upload_docker.sh"
+        sh "./upload_docker.sh"
       }
     }
   }
