@@ -32,12 +32,12 @@ pipeline {
     }
     stage('Push Image') {
       steps {
-        sh """  
-                docker login -u rwnfoo
-                docker system info | grep Registry
-                echo "Docker ID and Image: $dockerpath"
-                docker tag $dockerpath rwnfoo/$dockerpath
+        withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
+        sh """
+                docker tag blue:${BUILD_NUMBER} rwnfoo/blue:latest
+                docker push rwnfoo/blue:latest
          """
+        }
       }
     }
   }
