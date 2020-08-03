@@ -40,5 +40,13 @@ pipeline {
         }
       }
     }
+    stage('Deploy container') {
+      steps {
+        sh """
+        kubectl apply -f ./blue-controller.json
+        """
+        }
+      }
+    }
   }
 }
