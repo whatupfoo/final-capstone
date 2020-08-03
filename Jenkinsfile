@@ -45,7 +45,6 @@ pipeline {
         sh """
         kubectl apply -f ./blue-controller.json
         """
-        }
       }
     }
   }
