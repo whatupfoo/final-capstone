@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh """  
                 ls
-                docker build -t blue:latest .
+                docker build -t green:latest .
                 docker images
          """
       }
@@ -34,8 +34,8 @@ pipeline {
       steps {
         withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
         sh """
-                docker tag blue:latest rwnfoo/blue:latest
-                docker push rwnfoo/blue:latest
+                docker tag green:latest rwnfoo/green:latest
+                docker push rwnfoo/green:latest
          """
         }
       }
@@ -43,7 +43,7 @@ pipeline {
     stage('Deploy container') {
       steps {
         sh """
-        sudo su ubuntu -c "kubectl apply -f blue-deployment.json"
+        sudo su ubuntu -c "kubectl apply -f green-deployment.json"
         """
       }
     }
