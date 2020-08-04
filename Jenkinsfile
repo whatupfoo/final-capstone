@@ -46,7 +46,7 @@ pipeline {
         docker images
         docker ps
         ls -la
-        kubectl apply -f blue-controller.json
+        kubectl apply -f blue-deployment.json
         """
       }
     }
