@@ -2,15 +2,17 @@
 
 ## Overview
 This project aims to develop a CI/CD pipeline for microservices applications with blue/green deployment. The CI step includes a simple linter, and the CD steps include:
-- Pushing the built Docker container(s) to the Docker repository (you can use AWS ECR, create your own custom Registry within your cluster, or another 3rd party Docker repository) ; and
-- Deploying these Docker container(s) to a small Kubernetes cluster. For your Kubernetes cluster you can either use AWS Kubernetes as a Service, or build your own Kubernetes cluster. To deploy your Kubernetes cluster, use either Ansible or Cloudformation. Preferably, run these from within Jenkins as an independent pipeline.
+- Pushing the built Docker container(s) to the Docker repository
+- Deploying these Docker container(s) to a small Kubernetes cluster using AWS Kubernetes cluster
+- Building these steps in Jenkins pipeline
+
 
 ## Steps
 <details>
 <summary>Click to expand</summary>
 
-- Ubuntu 18.04
-- Install jenkins & plugins
+- EC2 Instance with Ubuntu 18.04
+- Install Jenkins & plugins
 ```
 Jenkins plugins: 
 
@@ -34,12 +36,48 @@ Pipeline: AWS Steps
 
 - [Install dependencies to deploy cluster with AWS EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html)
 
+- Create AWS keypair for cluster and create cluster using `eksctl`
 
+- Create blue & green branches, each with the following files:
+    - Dockerfile
+    - Jenkinsfile
+    - our "app": `index.html`
 
+- Build Jenkins pipeline
 
 </details>
 
 ## Screenshots requirements
+
+### Legit Linter
+
+Breaking the code in `index.html`
+![break-html](./images/break-html.png)
+
+BlueOcean view in Jenkins
+![linter1](./images/failed-linter.png)
+
+Jenkins Console Output
+![linter2](./images/failed-linter-jenkins.png)
+
+### CloudFormation Cluster
+![cf](./images/cluster-cloudformation.png)
+
+![ec2](./images/ec2-instances.png)
+
+### Blue Deployment
+![jenkins-blue0](./images/jenkins-blue.png)
+
+![jenkins-blue](./images/jenkins-expose-blue.png)
+
+![blue-site](./images/blue-app.png)
+
+### Green Deployment
+![jenkins-green0](./images/jenkins-green.png)
+
+![jenkins-green](./images/jenkins-expose-green.png)
+
+![green-site](./images/green-app.png)
 
 ## Problems I ran into / Lessons Learned 
 
@@ -49,7 +87,7 @@ Pipeline: AWS Steps
 
 - Unable to push to docker using Jenkins, even after adding docker credentials to Jenkins. Finally found a way to have Jenkins use docker credentials with `withDockerRegistry([ credentialsId: "dockerhub", url: "" ])`.
 
-- Installing `kubectl` on Ubuntu instead of Jenkins caused issues where Jenkins is unable to run `kubectl` commands.  My workaround is using `sudo su ubuntu -c` to run it.
+- Installing `kubectl` on Ubuntu user instead of Jenkins user caused issues where Jenkins is unable to run `kubectl` commands.  My workaround is using `sudo su ubuntu -c` to run it.
 
 - Switching between blue and green app doesn't show at first, but later realized it must be cached. By switching to incognito, I was able to see the switch.
 
