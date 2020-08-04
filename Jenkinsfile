@@ -45,7 +45,8 @@ pipeline {
         sh """
         docker images
         docker ps
-        kubectl apply -f ./blue-controller.json
+        ls -la
+        kubectl apply -f blue-controller.json
         """
       }
     }
