@@ -57,7 +57,7 @@ pipeline {
     stage('Expose IP') {
       steps {
         sh """
-        sudo su ubuntu -c "kubectl apply -f get svc"
+        sudo su ubuntu -c "kubectl get svc"
         """
       }
     }
