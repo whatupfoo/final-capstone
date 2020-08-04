@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh """  
                 ls
-                docker build -t blue:${BUILD_NUMBER} .
+                docker build -t blue:latest .
                 docker images
          """
       }
@@ -34,7 +34,7 @@ pipeline {
       steps {
         withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
         sh """
-                docker tag blue:${BUILD_NUMBER} rwnfoo/blue:latest
+                docker tag blue:latest rwnfoo/blue:latest
                 docker push rwnfoo/blue:latest
          """
         }
@@ -46,7 +46,7 @@ pipeline {
         docker images
         docker ps
         ls -la
-        kubectl apply -f blue-deployment.json
+        kubectl create -f blue-deployment.json
         """
       }
     }
