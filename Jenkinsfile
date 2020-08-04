@@ -47,7 +47,7 @@ pipeline {
         docker ps
         ls -la
         pwd
-        kubectl create -f blue-deployment.json
+        kubectl create -f /var/lib/jenkins/workspace/final-capstone_blue/blue-deployment.json
         """
       }
     }
