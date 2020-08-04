@@ -28,7 +28,8 @@
                          "name":"http-server",
                          "containerPort":80
                       }
-                   ]
+                   ],
+                   "imagePullPolicy": "IfNotPresent"
                 }
              ]
           }
