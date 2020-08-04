@@ -43,12 +43,7 @@ pipeline {
     stage('Deploy container') {
       steps {
         sh """
-        docker images
-        docker ps
-        ls -la
-        pwd
-        cat /var/lib/jenkins/workspace/final-capstone_blue/blue-deployment.json
-        kubectl create -f /var/lib/jenkins/workspace/final-capstone_blue/blue-deployment.json
+        sudo su ubuntu -c "kubectl create -f blue-deployment.json"
         """
       }
     }
