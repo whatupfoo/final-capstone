@@ -47,5 +47,19 @@ pipeline {
         """
       }
     }
+    stage('Create service & redirect to green') {
+      steps {
+        sh """
+        sudo su ubuntu -c "kubectl apply -f green-service.json"
+        """
+      }
+    }
+    stage('Expose IP') {
+      steps {
+        sh """
+        sudo su ubuntu -c "kubectl get svc"
+        """
+      }
+    }
   }
 }
