@@ -43,7 +43,7 @@ pipeline {
     stage('Deploy container') {
       steps {
         sh """
-        sudo su ubuntu -c "kubectl create -f blue-deployment.json"
+        sudo su ubuntu -c "kubectl apply -f blue-deployment.json"
         """
       }
     }
