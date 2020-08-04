@@ -49,6 +49,9 @@ Pipeline: AWS Steps
 
 ## Screenshots requirements
 
+<details>
+    <summary>Click to expand</summary>
+    
 ### Legit Linter
 
 Breaking the code in `index.html`
@@ -78,6 +81,8 @@ Jenkins Console Output
 ![jenkins-green](./images/jenkins-expose-green.png)
 
 ![green-site](./images/green-app.png)
+
+</details>
 
 ## Problems I ran into / Lessons Learned 
 
