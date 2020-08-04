@@ -47,5 +47,19 @@ pipeline {
         """
       }
     }
+    stage('Create service  & redirect to blue') {
+      steps {
+        sh """
+        sudo su ubuntu -c "kubectl apply -f blue-service.json"
+        """
+      }
+    }
+    stage('Expose IP') {
+      steps {
+        sh """
+        sudo su ubuntu -c "kubectl apply -f get svc"
+        """
+      }
+    }
   }
 }
