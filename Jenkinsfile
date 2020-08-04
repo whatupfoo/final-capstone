@@ -46,6 +46,7 @@ pipeline {
         docker images
         docker ps
         ls -la
+        pwd
         kubectl create -f blue-deployment.json
         """
       }
