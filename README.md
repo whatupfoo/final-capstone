@@ -50,5 +50,8 @@ Pipeline: AWS Steps
 - Unable to push to docker using Jenkins, even after adding docker credentials to Jenkins. Finally found a way to have Jenkins use docker credentials with `withDockerRegistry([ credentialsId: "dockerhub", url: "" ])`.
 
 - Installing `kubectl` on Ubuntu instead of Jenkins caused issues where Jenkins is unable to run `kubectl` commands.  My workaround is using `sudo su ubuntu -c` to run it.
+
+- Switching between blue and green app doesn't show at first, but later realized it must be cached. By switching to incognito, I was able to see the switch.
+
 </details>
 
