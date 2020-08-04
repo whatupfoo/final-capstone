@@ -43,6 +43,8 @@ pipeline {
     stage('Deploy container') {
       steps {
         sh """
+        docker images
+        docker ps
         kubectl apply -f ./blue-controller.json
         """
       }
